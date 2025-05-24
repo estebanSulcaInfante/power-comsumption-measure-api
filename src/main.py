@@ -20,7 +20,7 @@ except Exception:
 c = wmi.WMI(namespace="root\\CIMV2")
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "benchmarks"))
-API_URL = "http://localhost:5000/api/energy_data"  # Cambia por tu endpoint real
+API_URL = "http://localhost:5000/api/energy_data"  
 
 max_cpu_power_global = 30  # Benchmark para CPU
 max_gpu_power_global = 40  # Valor fijo, no benchmark
@@ -54,6 +54,13 @@ def get_gpu_usage():
     util = py3nvml.nvmlDeviceGetUtilizationRates(handle)
     return util.gpu
 
+def get_gpu_power_watts():
+    if not gpu_available:
+        return None
+    handle = py3nvml.nvmlDeviceGetHandleByIndex(0)
+    power_mw = py3nvml.nvmlDeviceGetPowerUsage(handle)
+    return power_mw / 1000  # convertir miliwatts a watts
+
 def get_temperature():
     temp_data = []
     try:
@@ -65,17 +72,6 @@ def get_temperature():
     except:
         pass
     return temp_data
-
-def estimate_power(cpu_load, gpu_load, battery_status):
-    base_idle = 10
-    battery_penalty = 5 if battery_status == "Cargando" else 0
-
-    cpu_power = (cpu_load / 100) * max_cpu_power_global
-    gpu_power = ((gpu_load or 0) / 100) * max_gpu_power_global
-
-    power = base_idle + cpu_power + gpu_power + battery_penalty
-    power_corrected = power * 1.2  # Corrección empírica
-    return power_corrected
 
 def get_active_network():
     addrs = psutil.net_if_addrs()
@@ -184,6 +180,17 @@ def post_data_chunk(data_chunk):
     except Exception as e:
         print(f"Error al enviar chunk: {e}")
 
+def estimate_power(cpu_load, gpu_power_watts, battery_status):
+    base_idle = 10
+    battery_penalty = 5 if battery_status == "Cargando" else 0
+
+    cpu_power = (cpu_load / 100) * max_cpu_power_global
+    gpu_power = gpu_power_watts if gpu_power_watts is not None else ((get_gpu_usage() or 0) / 100) * max_gpu_power_global
+
+    power = base_idle + cpu_power + gpu_power + battery_penalty
+    power_corrected = power * 1.2  # Corrección empírica
+    return power_corrected
+
 def main_monitor(interval=5, total_duration=300, chunk_size=10):
     data_records = []
     print("Iniciando monitor continuo...")
@@ -192,9 +199,11 @@ def main_monitor(interval=5, total_duration=300, chunk_size=10):
     while time.time() - start_time < total_duration:
         battery = get_battery_info() or {"status": "No Battery", "charge": None, "run_time": None}
         cpu = get_cpu_usage()
-        gpu = get_gpu_usage()
+        gpu_power = get_gpu_power_watts()  # usa el valor real de potencia GPU
+        gpu_load = get_gpu_usage()  # opcional, si quieres mostrar uso
+
         temps = get_temperature()
-        power = estimate_power(cpu, gpu, battery["status"])
+        power = estimate_power(cpu, gpu_power, battery["status"])
         network = get_active_network()
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -204,14 +213,15 @@ def main_monitor(interval=5, total_duration=300, chunk_size=10):
             "battery_charge": battery["charge"],
             "battery_run_time": battery["run_time"],
             "cpu_usage": cpu,
-            "gpu_usage": gpu,
+            "gpu_usage": gpu_load,
+            "gpu_power_watts": gpu_power,
             "power_estimated_watts": power,
             "temperature_samples": temps[:3],
             "network_connection": network
         }
         data_records.append(record)
 
-        print(f"[{timestamp}] Batería: {battery['status']} {battery['charge']}% | CPU: {cpu}% | GPU: {gpu if gpu is not None else 'N/A'}% | Potencia corregida: {power:.2f} W | Red: {network}")
+        print(f"[{timestamp}] Batería: {battery['status']} {battery['charge']}% | CPU: {cpu}% | GPU Load: {gpu_load if gpu_load is not None else 'N/A'}% | GPU Power: {gpu_power if gpu_power is not None else 'N/A'} W | Potencia corregida: {power:.2f} W | Red: {network}")
 
         if len(data_records) >= chunk_size:
             post_data_chunk(data_records)
@@ -232,7 +242,7 @@ def main_monitor(interval=5, total_duration=300, chunk_size=10):
 
     save_constants_and_summary(max_cpu_power_global, max_gpu_power_global, data_records)
     print("Resumen y constantes guardados.")
-        
+            
 if __name__ == "__main__":
     benchmark_cpu(duration=30)  # Benchmark CPU
     main_monitor(interval=5, total_duration=100, chunk_size=10)  # Monitoreo y envío por chunks
