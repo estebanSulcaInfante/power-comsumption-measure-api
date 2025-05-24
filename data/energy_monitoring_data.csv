@@ -1,0 +1,7 @@
+timestamp,battery_status,battery_charge,battery_run_time,cpu_usage,gpu_usage,power_estimated_watts,temperature_samples,network_connection
+2025-05-24 03:34:41,Cargando,100,71582788,6.6,0,23.0903424,[],Ethernet - Ethernet
+2025-05-24 03:34:47,Cargando,100,71582788,6.6,0,23.0903424,[],Ethernet - Ethernet
+2025-05-24 03:34:54,Cargando,100,71582788,12.5,7,31.000799999999998,[],Ethernet - Ethernet
+2025-05-24 03:35:00,Cargando,100,71582788,13.8,7,32.00344320000001,[],Ethernet - Ethernet
+2025-05-24 03:35:06,Cargando,100,71582788,16.3,4,32.49160320000001,[],Ethernet - Ethernet
+2025-05-24 03:35:12,Cargando,100,71582788,12.7,4,29.715052800000002,[],Ethernet - Ethernet

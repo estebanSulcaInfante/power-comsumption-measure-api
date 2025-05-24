@@ -1,0 +1,35 @@
+2025/5/23@22:01:13(0000000001) < > GpuTest (Windows x64) is starting up...
+2025/5/23@22:01:13(0000000002) < > GpuTest: Cross Platform Graphics Benchmark Utility
+2025/5/23@22:01:13(0000000003) < > (C)2012-2014 Geeks3D (www.geeks3d.com)
+2025/5/23@22:01:13(0000000004) < > gxl3d codename: Zhald.
+2025/5/23@22:01:13(0000000005) < > gxl3d_plugin_opencl: OpenCL computing plugin (OpenCL 1.1, 1.2).. By JeGX / Geeks3D.com
+2025/5/23@22:01:13(0000000006) < > gxl3d OpenCL plugin - initializing OpenCL data...
+2025/5/23@22:01:14(0000000007) < > gxl3d OpenCL plugin - found 1 OpenCL platform(s)
+2025/5/23@22:01:14(0000000008) < > gxl3d OpenCL plugin - Platform 0
+2025/5/23@22:01:14(0000000009) < > gxl3d OpenCL plugin - - vendor: NVIDIA Corporation
+2025/5/23@22:01:14(0000000010) < > gxl3d OpenCL plugin - - name: NVIDIA CUDA
+2025/5/23@22:01:14(0000000011) < > gxl3d OpenCL plugin - - profile: FULL_PROFILE
+2025/5/23@22:01:14(0000000012) < > gxl3d OpenCL plugin - - version: OpenCL 1.2 CUDA 11.1.114
+2025/5/23@22:01:14(0000000013) < > gxl3d OpenCL plugin - Platform 0 - devices count: 1
+2025/5/23@22:01:14(0000000014) < > gxl3d OpenCL plugin - - Device 0 - name: GeForce GTX 1660 Ti
+2025/5/23@22:01:14(0000000015) < > gxl3d OpenCL plugin - OpenCL data initialized ok.
+2025/5/23@22:01:14(0000000016) < > gxl3d_plugin_gpu_monitor_gml: GPU monitor plugin for gxl3d.. By JeGX / Geeks3D.com
+2025/5/23@22:01:14(0000000017) < > RtlGetVersion() - dwMajorVersion:10 - dwMinorVersion:0 - dwBuildNumber:19045 - dwPlatformId:2 - szCSDVersion=
+2025/5/23@22:01:14(0000000018) < > [GpuMonitor plugin] Num GPUs found: 1
+2025/5/23@22:01:14(0000000019) < > [GpuMonitor plugin] GPU0 - GeForce GTX 1660 Ti
+2025/5/23@22:01:14(0000000020) < > [GpuMonitor plugin] GPU0 - PCI codes: 0x10DE-0x2191
+2025/5/23@22:01:14(0000000021) < > [GpuMonitor plugin] GPU0 - BIOS: 90.16.25.40.a8
+2025/5/23@22:01:14(0000000022) < > [GpuMonitor plugin] GPU0 - core temperature: 43 degC
+2025/5/23@22:01:14(0000000023) < > Triangle - OpenGL renderer init OK.
+2025/5/23@22:01:14(0000000024) < > Triangle - VSYNC disabled (xxx_SwapInterval_xxx available).
+2025/5/23@22:01:14(0000000025) < > Triangle - OpenGL version detected: 4.6
+2025/5/23@22:01:14(0000000026) < > Triangle - # OpenGL extensions: 428
+2025/5/23@22:01:14(0000000027) < > Triangle - OpenGL - Renderer model: GeForce GTX 1660 Ti/PCIe/SSE2
+2025/5/23@22:01:14(0000000028) < > Triangle - OpenGL - Renderer vendor: NVIDIA Corporation
+2025/5/23@22:01:14(0000000029) < > Triangle - OpenGL - API version: 4.6.0 NVIDIA 457.49
+2025/5/23@22:01:14(0000000030) < > Triangle - OpenGL - Shading language version: 4.60 NVIDIA
+2025/5/23@22:01:24(0000000031) < > Exit from render thread
+2025/5/23@22:01:24(0000000032) < > # frames rendered: 55303
+2025/5/23@22:01:25(0000000033) < > Stopping gxl3d engine...
+2025/5/23@22:01:25(0000000034) < > Exit from GpuTest.
+

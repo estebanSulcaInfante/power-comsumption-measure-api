@@ -1,0 +1,6 @@
+Monitoreo desde: 2025-05-24 03:34:41
+Monitoreo hasta: 2025-05-24 03:35:12
+Duración total (s): 30
+Potencia estimada promedio (W): 28.57
+Potencia estimada máxima (W): 32.49
+Red activa (último registro): Ethernet - Ethernet
